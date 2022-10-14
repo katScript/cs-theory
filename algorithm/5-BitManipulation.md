@@ -138,7 +138,36 @@ Given an integer array `nums` of **unique** elements, return _all possible subse
 
 The solution set **must not** contain duplicate subsets. Return the solution in **any order**.
 
+```
+Input: nums = [1,2,3]
+Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+```
 
+```c++
+/**
+ * Idea: Map each subset to a bitmask of length n
+ * where 1 on the ith position in bitmask means the presence of nums[i] in the subset,
+ * and 0 means its absence.
+ */
 
-
+vector<vector<int>> subsets(vector<int>& nums) {
+    int n = nums.size();
+    vector<vector<int>> res;
+    
+    for (int i = 0; i < pow(2,n) - 1; ++i) {
+        vector<int> ss;
+        for (int p = 0; p < n; ++p) {
+            // GetBit problem
+            if (get_bit(i,p))
+            ss.push_back(nums[p]);
+        }
+        
+        res.push_back(ss);
+    }
+    
+    res.push_back(nums);
+    
+    return res;
+}
+```
 
